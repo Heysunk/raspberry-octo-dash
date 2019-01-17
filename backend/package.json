@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
+    "prod": "tsc && nodemon ./build/server.js",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
     "tsc": "tsc"
   },
   "repository": {
@@ -19,7 +22,14 @@
   "homepage": "https://github.com/Heysunk/raspberry-octo-dash#readme",
   "dependencies": {
     "@types/express": "^4.16.0",
+    "axios": "^0.18.0",
     "express": "^4.16.4",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tslint-config-airbnb-base": "^0.2.0",
     "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1"
   }
 }
