@@ -10,7 +10,60 @@ const instance: AxiosInstance = axios.create({
   timeout: 1000,
 });
 
-export function getRealtimeHome() : AxiosPromise {
-  return instance.get(`/realtimedeparturesV4.${format}?key=${SL_API_KEY}&siteid=${stationID}&timewindow=${timeWindow}`);
+export interface slResponseObject {
+  StatusCode: Number;
+  Message: String;
+  ExecutionTime: Number;
+  ResponseData: ResponseResult;
+}
+
+export interface ResponseResult {
+  LatestUpdate: Date;
+  DataAge: Number;
+  Buses: [Departure];
+  Metros: [Departure];
+  Trains: [Departure];
+  Trams: [Departure];
+  Ships: [Departure];
+  StopPointDeviations: [StopPointDeviation];
+}
+export interface Departure {
+  TransportMode: String;
+  LineNumber: String;
+  Destination: String;
+  JourneyDirection: Number;
+  GroupOfLine: String;
+  StopAreaName: String;
+  StopAreaNumber: Number;
+  StopPointDesignation: String;
+  TimeTabledDateTime: Date;
+  ExpectedDateTime: Date;
+  DisplayTime: String;
+  JourneyNumber: Number;
+  Deviations: [Deviation];
+  SecondaryDestiationName: String;
+}
+export interface Deviation {
+  Consequence: String;
+  ImportanceLevel: Number; // 0-9 where 9 is most severe
+  Text: String;
+}
+export interface StopPointDeviation {
+  StopInfo: StopInformation;
+  Deviation: Deviation;
+}
+export interface StopInformation {
+  GroupOfLine: String;
+  StopAreaName: String;
+  StopAreaNumber: Number;
+  TransportMode: String;
+}
+
+export function getRealtimeHome() : AxiosPromise<slResponseObject> {
+  return instance.get(
+    `/realtimedeparturesV4.${format}?key=${SL_API_KEY}
+    &siteid=${stationID}
+    &timewindow=${timeWindow}`,
+  );
 }
 

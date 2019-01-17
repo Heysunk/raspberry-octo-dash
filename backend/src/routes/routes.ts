@@ -1,5 +1,6 @@
 import express from 'express';
 import slroutes from './slRoutes';
+import errorRoutes from './errorRoutes';
 
 const router :express.Application.router = express.Router();
 
@@ -9,6 +10,9 @@ router.get('/', ((req: express.Request, res: express.Response, next: express.Nex
 }));
 
 router.use('/sl', slroutes);
+
+
+router.use('*', errorRoutes);
 
 
 export default router;
