@@ -1,8 +1,7 @@
 import express from 'express';
 import { getRealtimeSLStatus } from '../controllers/slController';
 
-const router :express.Application.router = express.Router();
-
+const router : express.Router = express.Router();
 router.use('/getHomeStatus', getRealtimeSLStatus);
 
 

@@ -1,7 +1,7 @@
 import express, { Response, Request, NextFunction } from 'express';
 import Verror from 'verror';
 
-const router :express.Application.router = express.Router();
+const router :express.Router = express.Router();
 
 router.use('*', (err: Verror ,req: Request, res: Response, next: NextFunction) => {
   console.log(err);

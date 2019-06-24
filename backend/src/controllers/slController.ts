@@ -1,25 +1,24 @@
 import { getRealtimeHome } from '../network/slApiCalls';
-import express, { Request, Response, NextFunction }  from 'express';
-import verror from 'verror';
-
+import express, { Request, Response, NextFunction } from 'express';
+import Verror, { info } from 'verror';
 
 export const getRealtimeSLStatus =
-  ((req: Response, res: Response, next: NextFunction) => getRealtimeHome()
+  ((req: Request, res: Response, next: NextFunction) => getRealtimeHome()
     .then((response) => {
       if (response.data.StatusCode !== 0) {
         // Error
-        const err = verror('Invalid Statuscode from request');
+        const err = new Verror({ info: { response } }, 'Invalid Statuscode from request');
         err.name = 'ResponseError';
-        err.response = response;
         throw err;
       }
       return res.status(200).json(response.data);
     })
     .catch((err) => {
-      if (err.name === 'ResponseError') {
-        console.log(err);
+      const error = new Verror(err, 'Error trying to get SL status');
+      if (error.name === 'ResponseError') {
+        console.log(error);
         console.log(err.response);
       }
-      next(err);
+      next(error);
     })
 );

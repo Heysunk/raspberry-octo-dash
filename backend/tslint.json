@@ -1,16 +1,17 @@
 {
     "extends": "tslint-config-airbnb-base",
     "rules":{
-        "no-underscore-dangle": 0,
-        "no-console": "allow",
+        "no-console": "false",
         "no-plusplus": ["error",{ "allowForLoopAfterthoughts": true }],
         "comma-dangle": ["error", {
             "functions": "never",
             "objects": "always-multiline",
             "arrays": "always-multiline"
         }],
-        "no-unused-vars": ["error", {"varsIgnorePattern": "_" }],
-        "no-else-return": "off"
+        "no-unused-vars": ["error", {"varsIgnorePattern": "_" }]
         
-    }
+    },
+      "jsRules": {
+    "no-console": false 
+  }
 }
